@@ -1,2 +1,1 @@
-# Ksmd-Session-Gen
-A WHATSAPP SESSION ID GENERATOR FOR ALL KSMD BOTS 💙🙈
+### `*SESSION ID GENERATOR DEVELOPED BY <| 𝐌𝐑 𝐔𝐍𝐊𝐍𝐎𝐖𝐍 🫧*`
