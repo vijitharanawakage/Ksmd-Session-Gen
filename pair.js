@@ -75,16 +75,30 @@ var randomItem = selectRandomItem(items);
                         const { upload } = require('./mega');
                         const mega_url = await upload(fs.createReadStream(rf), `${sock.user.id}.json`);
                         const string_session = mega_url.replace('https://mega.nz/file/', '');
-                        let md = "KSMD~" + string_session;
+                        let md = "KANGO~" + string_session;
                         let code = await sock.sendMessage(sock.user.id, { text: md });
-                        let desc = `*Hey Dear👋*\n\n*Don’t Share Your Session ID With Your Gf🤣*\n\n*Yep...This Is <| 𝐊𝐈𝐍𝐆-𝐒𝐀𝐍𝐃𝐄𝐒𝐇-𝐌𝐃👻*\n\n*THANKS FOR USING KING-SANDESH-MD*\n\n*CONNECT FOR UPDATES*: https://whatsapp.com/channel/0029Vb5saAU4Y9lfzhgBmS2N\n\n> ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴋɪɴɢ ꜱᴀɴᴅᴇꜱʜ ᴍᴜʟᴛɪ ᴅᴇᴠɪᴄᴇ👻\n`; 
+                        let desc = `*Hello there KANGO-XMD User! 👋🏻* 
+
+> Do not share your session id with your gf 😂.
+
+ *Thanks for using KANGO-XMD 🚩* 
+
+> Join WhatsApp Channel :- ⤵️
+ 
+https://whatsapp.com/channel/0029Va8YUl50bIdtVMYnYd0E
+
+Dont forget to fork the repo ⬇️
+
+https://github.com/OfficialKango/KANGO-XMD
+
+> *© Powered BY Hector Manuel 🖤*`; 
                         await sock.sendMessage(sock.user.id, {
 text: desc,
 contextInfo: {
 externalAdReply: {
-title: "Professor Sandesh Bhashana",
+title: "Hector Manuel",
 thumbnailUrl: "https://i.imgur.com/GVW7aoD.jpeg",
-sourceUrl: "https://whatsapp.com/channel/0029Vb5saAU4Y9lfzhgBmS2N",
+sourceUrl: "https://whatsapp.com/channel/0029Va8YUl50bIdtVMYnYd0E",
 mediaType: 1,
 renderLargerThumbnail: true
 }  
@@ -93,14 +107,14 @@ renderLargerThumbnail: true
 {quoted:code })
                     } catch (e) {
                             let ddd = sock.sendMessage(sock.user.id, { text: e });
-                            let desc = `*Don't Share with anyone this code use for deploy KING-SANDESH-MD*\n\n ◦ *Github:* https://github.com/vijitharanawakage/KING-SANDESH-MD`;
+                            let desc = `*Don't Share with anyone this code use for deploy KANGO-XMD*\n\n ◦ *Github:* https://github.com/OfficialKango/KANGO-XMD`;
                             await sock.sendMessage(sock.user.id, {
 text: desc,
 contextInfo: {
 externalAdReply: {
-title: "KING-SANDESH-MD",
+title: "KANGO-XMD",
 thumbnailUrl: "https://i.imgur.com/GVW7aoD.jpeg",
-sourceUrl: "https://whatsapp.com/channel/0029Vb5saAU4Y9lfzhgBmS2N",
+sourceUrl: "https://whatsapp.com/channel/0029Va8YUl50bIdtVMYnYd0E",
 mediaType: 2,
 renderLargerThumbnail: true,
 showAdAttribution: true
