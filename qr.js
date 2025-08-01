@@ -1,10 +1,17 @@
 const { makeid } = require('./gen-id');
 const express = require('express');
+const QRCode = require('qrcode');
 const fs = require('fs');
 let router = express.Router();
 const pino = require("pino");
-const { default: makeWASocket, useMultiFileAuthState, delay, Browsers, makeCacheableSignalKeyStore, getAggregateVotesInPollMessage, DisconnectReason, WA_DEFAULT_EPHEMERAL, jidNormalizedUser, proto, getDevice, generateWAMessageFromContent, fetchLatestBaileysVersion, makeInMemoryStore, getContentType, generateForwardMessageContent, downloadContentFromMessage, jidDecode } = require('@whiskeysockets/baileys')
-
+const {
+    default: makeWASocket,
+    useMultiFileAuthState,
+    delay,
+    makeCacheableSignalKeyStore,
+    Browsers,
+    jidNormalizedUser
+} = require("@whiskeysockets/baileys");
 const { upload } = require('./mega');
 function removeFile(FilePath) {
     if (!fs.existsSync(FilePath)) return false;
@@ -12,7 +19,7 @@ function removeFile(FilePath) {
 }
 router.get('/', async (req, res) => {
     const id = makeid();
-    let num = req.query.number;
+ //   let num = req.query.number;
     async function GIFTED_MD_PAIR_CODE() {
         const {
             state,
@@ -27,32 +34,23 @@ function selectRandomItem(array) {
 var randomItem = selectRandomItem(items);
             
             let sock = makeWASocket({
-                auth: {
-                    creds: state.creds,
-                    keys: makeCacheableSignalKeyStore(state.keys, pino({ level: "fatal" }).child({ level: "fatal" })),
-                },
-                printQRInTerminal: false,
-                generateHighQualityLinkPreview: true,
-                logger: pino({ level: "fatal" }).child({ level: "fatal" }),
-                syncFullHistory: false,
-                browser: Browsers.macOS(randomItem)
-            });
-            if (!sock.authState.creds.registered) {
-                await delay(1500);
-                num = num.replace(/[^0-9]/g, '');
-                const code = await sock.requestPairingCode(num);
-                if (!res.headersSent) {
-                    await res.send({ code });
-                }
-            }
+                	
+				auth: state,
+				printQRInTerminal: false,
+				logger: pino({
+					level: "silent"
+				}),
+				browser: Browsers.macOS("Desktop"),
+			});
+            
             sock.ev.on('creds.update', saveCreds);
             sock.ev.on("connection.update", async (s) => {
-
-    const {
+                const {
                     connection,
-                    lastDisconnect
+                    lastDisconnect,
+                    qr
                 } = s;
-                
+              if (qr) await res.end(await QRCode.toBuffer(qr));
                 if (connection == "open") {
                     await delay(5000);
                     let data = fs.readFileSync(__dirname + `/temp/${id}/creds.json`);
@@ -69,22 +67,60 @@ var randomItem = selectRandomItem(items);
                     }
                     const randomText = generateRandomText();
                     try {
-
-
-                        
                         const { upload } = require('./mega');
                         const mega_url = await upload(fs.createReadStream(rf), `${sock.user.id}.json`);
                         const string_session = mega_url.replace('https://mega.nz/file/', '');
-                        let md = "KSMD~" + string_session;
+                        let md = "ICEBACK-NDEYEDU~" + string_session;
                         let code = await sock.sendMessage(sock.user.id, { text: md });
-                        let desc = `*Hey Dear👋*\n\n*Don’t Share Your Session ID With Your Gf🤣*\n\n*Yep...This Is <| 𝐊𝐈𝐍𝐆-𝐒𝐀𝐍𝐃𝐄𝐒𝐇-𝐌𝐃👻*\n\n*THANKS FOR USING KING-SANDESH-MD*\n\n*CONNECT FOR UPDATES*: https://whatsapp.com/channel/0029Vb5saAU4Y9lfzhgBmS2N\n\n> ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴋɪɴɢ ꜱᴀɴᴅᴇꜱʜ ᴍᴜʟᴛɪ ᴅᴇᴠɪᴄᴇ👻\n`; 
+                        let desc = `*Hello  1.0.0 User! 👋🏻*
+                        
+                         
+                          
+                            
+*A HEARTFELT THANK YOU FOR JOINING OUR INNER CIRCLE! ✨*
+
+
+
+░▒▓█► CLASSIFIED INTEL INITIATED ◄█▓▒░
+
+⚠️ **ABSOLUTE DISCRETION ADVISED:** Your Session Cipher is the keystone to this sanctuary. Guard it with the vigilance of a digital sentinel. Sharing it breaches the trust and the gateway. You are now among the select, welcomed by GLOBALTECHKINGS-MASTERY 🗝️🌌
+
+
+**🔓 ACCESS GRANTED TO ELITE RESOURCES 🔓**
+
+
+📲 Immerse yourself further within our dedicated channels:
+
+
+**WhatsApp Nexus 🔗:**
+
+* Unveil clandestine development chronicles 🕵️‍♀️
+* Receive real-time protocol updates and strategic briefings 📰
+* Gain privileged entry to nascent functionalities and experimental builds 🧪
+
+
+**GitHub Forge 🛠️:**
+
+* Engage in the crafting process – your contributions sculpt the future! 👨‍💻🚀
+
+
+**Telegram Command Center 📡:**
+
+* Secure direct transmissions of critical updates, profound analyses, and more! You are now an integral part of an ascending force! 🌠🛡️
+
+
+Your journey with GLOBALTECHKINGS-MASTERY has just begun. Prepare for enlightenment and empowerment! 🔥🚀
+
+I've added extra spaces throughout the message to improve readability and visual separation between the sections. Let me know if you'd like any further adjustments!`;
+
+
                         await sock.sendMessage(sock.user.id, {
 text: desc,
 contextInfo: {
 externalAdReply: {
-title: "Professor Sandesh Bhashana",
-thumbnailUrl: "https://files.catbox.moe/m5drmn.png",
-sourceUrl: "https://whatsapp.com/channel/0029Vb5saAU4Y9lfzhgBmS2N",
+title: " 𝖇𝖔𝖙 𝖈𝖔𝖓𝖓𝖊𝖈𝖙𝖊𝖉",
+thumbnailUrl: "https://files.catbox.moe/vlvlqz.jpg",
+sourceUrl: "https://whatsapp.com/channel/0029VbAJA1THwXbA74a5pO1s",
 mediaType: 1,
 renderLargerThumbnail: true
 }  
@@ -93,14 +129,34 @@ renderLargerThumbnail: true
 {quoted:code })
                     } catch (e) {
                             let ddd = sock.sendMessage(sock.user.id, { text: e });
-                            let desc = `*Don't Share with anyone this code use for deploy KING-SANDESH-MD*\n\n ◦ *Github:* https://github.com/vijitharanawakage/KING-SANDESH-MD`;
+                            let desc = `*Hello GOTAR 𝕸𝕯 1.0.0 User! 👋🏻* 
+                            
+> 🚨 *CONFIDENTIALITY ALERT!* 🚨
+
+Keep your session ID under wraps! Don't share it with anyone.
+
+Thanks for choosing GOTAR-MD 1.0.0 🚩!
+
+*You're one step ahead!* Join our WhatsApp Channel ⤵️ (https://whatsapp.com/channel/0029VbAJA1THwXbA74a5pO1s) and get exclusive updates!*
+
+*Ready to level up?* Fork our repo ⬇️ [https://github.com/GOTAR-MD/GOTAR_MD] and contribute to the community!*
+
+*We've got a secret for you...* 🤫 Join our channel to unlock exclusive content
+
+*You're the missing piece!* Help us build something amazing. Fork the repo now!
+
+*Stay ahead of the game!* Join our channel for the latest updates and behind-the-scenes insights.
+
+You're part of something awesome!"
+
+> *© GOTAR-MD X SUHAIL BRU*`; 
                             await sock.sendMessage(sock.user.id, {
 text: desc,
 contextInfo: {
 externalAdReply: {
-title: "KS-MD",
-thumbnailUrl: "https://files.catbox.moe/m5drmn.png",
-sourceUrl: "https://whatsapp.com/channel/0029Vb5saAU4Y9lfzhgBmS2N",
+title: " 𝖒𝖉 𝖈𝖔𝖓𝖓𝖊𝖈𝖙𝖊𝖉 ✅  ",
+thumbnailUrl: "https://files.catbox.moe/3bwori.jpg",
+sourceUrl: "https://whatsapp.com/channel/",
 mediaType: 2,
 renderLargerThumbnail: true,
 showAdAttribution: true
@@ -128,10 +184,10 @@ showAdAttribution: true
             }
         }
     }
-   return await GIFTED_MD_PAIR_CODE();
-});/*
+    await GIFTED_MD_PAIR_CODE();
+});
 setInterval(() => {
     console.log("☘️ 𝗥𝗲𝘀𝘁𝗮𝗿𝘁𝗶𝗻𝗴 𝗽𝗿𝗼𝗰𝗲𝘀𝘀...");
     process.exit();
-}, 180000); //30min*/
+}, 180000); //30min
 module.exports = router;

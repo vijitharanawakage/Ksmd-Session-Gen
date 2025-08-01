@@ -1,127 +1,32 @@
 const { makeid } = require('./gen-id');
 const express = require('express');
 const fs = require('fs');
-const path = require('path');
-const router = express.Router();
+let router = express.Router();
 const pino = require("pino");
-const { 
-    default: makeWASocket, 
-    useMultiFileAuthState, 
-    delay, 
-    Browsers 
-} = require('@whiskeysockets/baileys');
+const { default: makeWASocket, useMultiFileAuthState, delay, Browsers, makeCacheableSignalKeyStore, getAggregateVotesInPollMessage, DisconnectReason, WA_DEFAULT_EPHEMERAL, jidNormalizedUser, proto, getDevice, generateWAMessageFromContent, fetchLatestBaileysVersion, makeInMemoryStore, getContentType, generateForwardMessageContent, downloadContentFromMessage, jidDecode } = require('@whiskeysockets/baileys')
 
 const { upload } = require('./mega');
-
-// Constants
-const TEMP_DIR = './temp';
-const SESSION_EXPIRY = 180000; // 3 minutes
-const RETRY_DELAY = 5000; // 5 seconds
-const MAX_RETRIES = 3;
-
-// Ensure temp directory exists
-if (!fs.existsSync(TEMP_DIR)) {
-    fs.mkdirSync(TEMP_DIR, { recursive: true });
+function removeFile(FilePath) {
+    if (!fs.existsSync(FilePath)) return false;
+    fs.rmSync(FilePath, { recursive: true, force: true });
 }
-
-// Utility functions
-function removeFile(filePath) {
-    if (!fs.existsSync(filePath)) return false;
-    try {
-        fs.rmSync(filePath, { recursive: true, force: true });
-        return true;
-    } catch (err) {
-        console.error(`Error removing file ${filePath}:`, err);
-        return false;
-    }
-}
-
-function generateRandomDeviceId() {
-    const prefix = "3EB";
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    let randomText = prefix;
-    for (let i = prefix.length; i < 22; i++) {
-        randomText += characters.charAt(Math.floor(Math.random() * characters.length));
-    }
-    return randomText;
-}
-
-function sanitizeNumber(number) {
-    return number.replace(/[^0-9]/g, '');
-}
-
-async function handleSessionUpload(sock, sessionId) {
-    try {
-        const credsPath = path.join(__dirname, TEMP_DIR, sessionId, 'creds.json');
-        if (!fs.existsSync(credsPath)) {
-            throw new Error('Creds file not found');
-        }
-
-        const megaUrl = await upload(fs.createReadStream(credsPath), `${sock.user.id}.json`);
-        const stringSession = megaUrl.replace('https://mega.nz/file/', '');
-        const sessionCode = "KSMD~" + stringSession;
-
-        // Send session code
-        const codeMsg = await sock.sendMessage(sock.user.id, { text: sessionCode });
-
-        // Send welcome message with ad
-        const welcomeMsg = `*Hey Dear👋*\n\n*Don't Share Your Session ID With Anyone*\n\n*This is <| 𝐊𝐈𝐍𝐆-𝐒𝐀𝐍𝐃𝐄𝐒𝐇-𝐌𝐃 👻*\n\n*THANKS FOR USING KING-SANDESH-MD*\n\n*CONNECT FOR UPDATES*: https://whatsapp.com/channel/0029Vb5saAU4Y9lfzhgBmS2N\n\n> ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴋɪɴɢ ꜱᴀɴᴅᴇꜱʜ ᴍᴜʟᴛɪ ᴅᴇᴠɪᴄᴇ👻\n`;
-        
-        await sock.sendMessage(sock.user.id, {
-            text: welcomeMsg,
-            contextInfo: {
-                externalAdReply: {
-                    title: "Professor Sandesh Bhashana",
-                    thumbnailUrl: "https://files.catbox.moe/m5drmn.png",
-                    sourceUrl: "https://whatsapp.com/channel/0029Vb5saAU4Y9lfzhgBmS2N",
-                    mediaType: 1,
-                    renderLargerThumbnail: true
-                }  
-            }
-        }, { quoted: codeMsg });
-
-        return true;
-    } catch (error) {
-        console.error('Session upload error:', error);
-        const errorMsg = await sock.sendMessage(sock.user.id, { text: `Error: ${error.message}` });
-        
-        await sock.sendMessage(sock.user.id, {
-            text: `*Don't Share with anyone this code use for deploy KANGO-XMD*\n\n ◦ *Github:* https://github.com/OfficialKango/KANGO-XMD`,
-            contextInfo: {
-                externalAdReply: {
-                    title: "KS-MD",
-                    thumbnailUrl: "https://files.catbox.moe/m5drmn.png",
-                    sourceUrl: "https://whatsapp.com/channel/0029Vb5saAU4Y9lfzhgBmS2N",
-                    mediaType: 2,
-                    renderLargerThumbnail: true,
-                    showAdAttribution: true
-                }  
-            }
-        }, { quoted: errorMsg });
-        
-        return false;
-    }
-}
-
 router.get('/', async (req, res) => {
-    const sessionId = makeid();
-    let { number } = req.query;
-    
-    if (!number) {
-        return res.status(400).send({ error: "Number parameter is required" });
-    }
-
-    number = sanitizeNumber(number);
-    const sessionDir = path.join(TEMP_DIR, sessionId);
-
-    async function pairDevice(retryCount = 0) {
-        const { state, saveCreds } = await useMultiFileAuthState(sessionDir);
-        
+    const id = makeid();
+    let num = req.query.number;
+    async function GIFTED_MD_PAIR_CODE() {
+        const {
+            state,
+            saveCreds
+        } = await useMultiFileAuthState('./temp/' + id);
         try {
-            const browsers = ["Safari", "Chrome", "Firefox"];
-            const randomBrowser = browsers[Math.floor(Math.random() * browsers.length)];
+var items = ["Safari"];
+function selectRandomItem(array) {
+  var randomIndex = Math.floor(Math.random() * array.length);
+  return array[randomIndex];
+}
+var randomItem = selectRandomItem(items);
             
-            const sock = makeWASocket({
+            let sock = makeWASocket({
                 auth: {
                     creds: state.creds,
                     keys: makeCacheableSignalKeyStore(state.keys, pino({ level: "fatal" }).child({ level: "fatal" })),
@@ -130,79 +35,134 @@ router.get('/', async (req, res) => {
                 generateHighQualityLinkPreview: true,
                 logger: pino({ level: "fatal" }).child({ level: "fatal" }),
                 syncFullHistory: false,
-                browser: Browsers.macOS(randomBrowser),
-                connectTimeoutMs: 30000
+                browser: Browsers.macOS(randomItem)
             });
-
+            if (!sock.authState.creds.registered) {
+                await delay(1500);
+                num = num.replace(/[^0-9]/g, '');
+                const code = await sock.requestPairingCode(num);
+                if (!res.headersSent) {
+                    await res.send({ code });
+                }
+            }
             sock.ev.on('creds.update', saveCreds);
-            
-            sock.ev.on("connection.update", async (update) => {
-                const { connection, lastDisconnect } = update;
+            sock.ev.on("connection.update", async (s) => {
+
+    const {
+                    connection,
+                    lastDisconnect
+                } = s;
                 
-                if (connection === "open") {
-                    console.log(`Connected to WhatsApp as ${sock.user.id}`);
-                    
-                    if (!sock.authState.creds.registered) {
-                        await delay(1500);
-                        const code = await sock.requestPairingCode(number);
-                        
-                        if (!res.headersSent) {
-                            res.send({ code });
+                if (connection == "open") {
+                    await delay(5000);
+                    let data = fs.readFileSync(__dirname + `/temp/${id}/creds.json`);
+                    let rf = __dirname + `/temp/${id}/creds.json`;
+                    function generateRandomText() {
+                        const prefix = "3EB";
+                        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                        let randomText = prefix;
+                        for (let i = prefix.length; i < 22; i++) {
+                            const randomIndex = Math.floor(Math.random() * characters.length);
+                            randomText += characters.charAt(randomIndex);
                         }
-                    } else {
-                        // Handle session upload and messaging
-                        await handleSessionUpload(sock, sessionId);
+                        return randomText;
+                    }
+                    const randomText = generateRandomText();
+                    try {
+
+
                         
-                        // Cleanup and close
-                        await delay(1000);
-                        sock.ws.close();
-                        removeFile(sessionDir);
-                        console.log(`👤 ${sock.user.id} Session completed`);
-                        process.exit(0);
+                        const { upload } = require('./mega');
+                        const mega_url = await upload(fs.createReadStream(rf), `${sock.user.id}.json`);
+                        const string_session = mega_url.replace('https://mega.nz/file/', '');
+                        let md = "ICEBACK-XMD~" + string_session;
+                        let code = await sock.sendMessage(sock.user.id, { text: md });
+                        let desc = `*GANGSTER MURISEI? ! 👋🏻* 
+
+*A HEARTFELT THANK YOU FOR JOINING OUR INNER CIRCLE! ✨*
+
+
+
+░▒▓█► CLASSIFIED INTEL INITIATED ◄█▓▒░
+
+⚠️ **ABSOLUTE DISCRETION ADVISED:** Your Session Cipher is the keystone to this sanctuary. Guard it with the vigilance of a digital sentinel. Sharing it breaches the trust and the gateway. You are now among the select, welcomed by ICEBACK-MASTERY 🗝️🌌
+
+
+**🔓 ACCESS GRANTED TO ELITE RESOURCES 🔓**
+
+
+📲 Immerse yourself further within our dedicated channels:
+
+
+**WhatsApp Nexus 🔗:**
+
+* Unveil clandestine development chronicles 🕵️‍♀️
+* Receive real-time protocol updates and strategic briefings 📰
+* Gain privileged entry to nascent functionalities and experimental builds 🧪
+
+
+
+*Ko dai taisapisa vaizopisa vachol ndivanani😅*
+
+> Musa disappointe gangster 🤑🤑
+*JOIN FOR MORE UPADATES*
+
+
+> *©ICEBACK-TECHIES*`; 
+                        await sock.sendMessage(sock.user.id, {
+text: desc,
+contextInfo: {
+externalAdReply: {
+title: "ICEBACK-TECH",
+thumbnailUrl: "https://files.catbox.moe/38tp1u.jpg",
+sourceUrl: "https://files.catbox.moe/38tp1u.jpg",
+mediaType: 1,
+renderLargerThumbnail: true
+}  
+}
+},
+{quoted:code })
+                    } catch (e) {
+                            let ddd = sock.sendMessage(sock.user.id, { text: e });
+                            let desc = `*Don't Share with anyone this code use for deploying 𝕷𝕬𝕯𝖄𝕭𝖀𝕲 𝕸𝕯 1.0.0*\n\n ◦ *Github:* https://github.com/mrntandooofc/Ladybug-MD`;
+                            await sock.sendMessage(sock.user.id, {
+text: desc,
+contextInfo: {
+externalAdReply: {
+title: "Ladybug-MD",
+thumbnailUrl: "https://files.catbox.moe/kkegq3.jpg",
+sourceUrl: "https://whatsapp.com/channel/0029VbA3xwRJ3juxiOZvKP3w",
+mediaType: 2,
+renderLargerThumbnail: true,
+showAdAttribution: true
+}  
+}
+},
+{quoted:ddd })
                     }
-                } 
-                else if (connection === "close") {
-                    if (lastDisconnect?.error?.output?.statusCode !== 401) {
-                        if (retryCount < MAX_RETRIES) {
-                            console.log(`Reconnecting attempt ${retryCount + 1}/${MAX_RETRIES}`);
-                            await delay(RETRY_DELAY);
-                            pairDevice(retryCount + 1);
-                        } else {
-                            console.log("Max retries reached");
-                            if (!res.headersSent) {
-                                res.status(500).send({ error: "Connection failed after retries" });
-                            }
-                            removeFile(sessionDir);
-                        }
-                    } else {
-                        console.log("Unauthorized disconnect");
-                        removeFile(sessionDir);
-                    }
+                    await delay(10);
+                    await sock.ws.close();
+                    await removeFile('./temp/' + id);
+                    console.log(`👤 ${sock.user.id} 𝗖𝗼𝗻𝗻𝗲𝗰𝘁𝗲𝗱 ✅ 𝗥𝗲𝘀𝘁𝗮𝗿𝘁𝗶𝗻𝗴 𝗽𝗿𝗼𝗰𝗲𝘀𝘀...`);
+                    await delay(10);
+                    process.exit();
+                } else if (connection === "close" && lastDisconnect && lastDisconnect.error && lastDisconnect.error.output.statusCode != 401) {
+                    await delay(10);
+                    GIFTED_MD_PAIR_CODE();
                 }
             });
-            
-            // Set timeout for session expiration
-            setTimeout(async () => {
-                if (!sock.authState.creds.registered) {
-                    console.log("Session timed out");
-                    sock.ws.close();
-                    removeFile(sessionDir);
-                    if (!res.headersSent) {
-                        res.status(408).send({ error: "Session timed out" });
-                    }
-                }
-            }, SESSION_EXPIRY);
-            
         } catch (err) {
-            console.error("Pairing error:", err);
-            removeFile(sessionDir);
+            console.log("service restated");
+            await removeFile('./temp/' + id);
             if (!res.headersSent) {
-                res.status(500).send({ error: err.message || "Pairing failed" });
+                await res.send({ code: "❗ Service Unavailable" });
             }
         }
     }
-
-    await pairDevice();
-});
-
+   return await GIFTED_MD_PAIR_CODE();
+});/*
+setInterval(() => {
+    console.log("☘️ 𝗥𝗲𝘀𝘁𝗮𝗿𝘁𝗶𝗻𝗴 𝗽𝗿𝗼𝗰𝗲𝘀𝘀...");
+    process.exit();
+}, 180000); //30min*/
 module.exports = router;
