@@ -2,7 +2,7 @@
     "name": "Gifted Session Generator",
     "description": "Web Session Generator",
     "logo": "https://files.catbox.moe/6f05ah.jpg",
-    "repository": "https://github.com/vijitharanawakage/-KS-MD-SESSION",
+    "repository": "https://github.com/vijitharanawakage/KS-MD-SESSION-",
     "keywords": ["pair"],
     "success_url": "/", 
     "buildpacks": [{ "url": "https://github.com/heroku/heroku-buildpack-nodejs#latest" } ],
