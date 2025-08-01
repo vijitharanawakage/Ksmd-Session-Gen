@@ -1,15 +1,15 @@
 {
-"name": "ks-md",
+"name": "web-pair",
     "version": "0.0.1",
     "description": "A multi functional whatsapp bot Web paircode.",
     "main": "index.js",
     "scripts": {
-      "start": "pm2 start index.js --deep-monitoring --attach --name ks-md",
-      "stop": "pm2 stop ks-md",
-     "restart": "pm2 restart ks-md"
+      "start": "pm2 start index.js --deep-monitoring --attach --name vajira-md",
+      "stop": "pm2 stop vajira-md",
+     "restart": "pm2 restart vajira-md"
     },
   "dependencies": {
-    "@whiskeysockets/baileys": "6.7.17",              
+    "@whiskeysockets/baileys": "6.7.16",              
     "@adiwajshing/keyed-db": "^0.2.4",
     "qrcode": "^1.5.3",
     "awesome-phonenumber": "^2.64.0",

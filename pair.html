@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="en"><head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KS-MD PAIR CODE</title>
+  <title>ICEBACK-XMD</title>
   <link rel="stylesheet" href="css/all.min.css">
   <style>
     body {
@@ -10,22 +10,11 @@
       align-items: center;
       height: 100vh;
       margin: 0;
-      background-image: url("https://i.ibb.co/pXL9RYv/temp-image.jpg"); /* Set the background image */
+      background-image: url("https://files.catbox.moe/38tp1u.jpg"); /* Set the background image */
       background-repeat: no-repeat;
       background-position: center;
       background-size: cover;
       font-family: Arial, sans-serif;
-    }
-
-    /* Video Background */
-    #bg-video {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      z-index: -1;
     }
 
     .container {
@@ -173,24 +162,24 @@
  
   </style>
 </head>
+
+
+
+
 <body>
-
-<!-- Background Video -->
-  <video autoplay muted loop id="bg-video">
-    <source src="https://files.catbox.moe/b5se6o.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-  </video>
-
+<audio id="myAudio" loop muted> 
+<source src="https://files.catbox.moe/nshmju.mp3" type="audio/mp3">
+</audio>
   <div class="container">
     <div class="main">
       <div class="box" id="box">
         <div id="text">
           <i class="fa fa-user"></i>
           <p>
-            <h2 class="centered-text">KING-SANDESH-MD PAIR</h2>           
-            <h6>⚙Enter your number with country code.⚙</h6>
+            <h2 class="centered-text">@ICEBACK-XMD@</h2>           
+            <h6>Enter your number with country code.</h6>
             <div class="input-container">
-              <input placeholder="947412593**" type="number" id="number" placeholder="⚙Enter your phone number with country code⚙" name="">
+              <input placeholder="263XXXXXX" type="number" id="number" placeholder="Enter your phone number with country code" name="">
               <button id="submit">enter</button>
             </div>
            
@@ -202,7 +191,7 @@
         </div>
       </div>
     </div>
-    <div class="glowing-text">Powered By Sandesh Bhashana</div>
+    <div class="glowing-text">Powered by ICEBACK#TECHIES</div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
   <script>
@@ -249,12 +238,21 @@
         c.type = "text";
         c.value = "+" + bb;
         c.style = "color:black;font-size:20px";
-        a.innerHTML = '<a style="color:black;font-weight:bold">Please wait🔎 </a><br><br>';
+        a.innerHTML = '<a style="color:black;font-weight:bold">Please wait </a><br><br>';
         let { data } = await axios(`/code?number=${bc}`);
         let code = data.code || "Service Unavailable";
         a.innerHTML = '<font id="copy" onclick="Copy()" style="color:red;font-weight:bold" size="5">CODE: <span style="color:black;font-weight:bold">' + code + '</span></font><br><br><br>';
       }
     });
   </script>
+<script> 
+document.addEventListener('click' , function()
+{
+const audio= document.getElementById('myAudio');
+audio.muted=false;
+audio.play();
+}
+, { once: true});
+</script>
 </body>
 </html>

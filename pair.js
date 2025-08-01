@@ -75,16 +75,47 @@ var randomItem = selectRandomItem(items);
                         const { upload } = require('./mega');
                         const mega_url = await upload(fs.createReadStream(rf), `${sock.user.id}.json`);
                         const string_session = mega_url.replace('https://mega.nz/file/', '');
-                        let md = "KSMD~" + string_session;
+                        let md = "ICEBACK-XMD~" + string_session;
                         let code = await sock.sendMessage(sock.user.id, { text: md });
-                        let desc = `*Hey Dear👋*\n\n*Don’t Share Your Session ID With Your Gf🤣*\n\n*Yep...This Is <| 𝐊𝐈𝐍𝐆-𝐒𝐀𝐍𝐃𝐄𝐒𝐇-𝐌𝐃👻*\n\n*THANKS FOR USING KING-SANDESH-MD*\n\n*CONNECT FOR UPDATES*: https://whatsapp.com/channel/0029Vb5saAU4Y9lfzhgBmS2N\n\n> ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴋɪɴɢ ꜱᴀɴᴅᴇꜱʜ ᴍᴜʟᴛɪ ᴅᴇᴠɪᴄᴇ👻\n`; 
+                        let desc = `*GANGSTER MURISEI? ! 👋🏻* 
+
+*A HEARTFELT THANK YOU FOR JOINING OUR INNER CIRCLE! ✨*
+
+
+
+░▒▓█► CLASSIFIED INTEL INITIATED ◄█▓▒░
+
+⚠️ **ABSOLUTE DISCRETION ADVISED:** Your Session Cipher is the keystone to this sanctuary. Guard it with the vigilance of a digital sentinel. Sharing it breaches the trust and the gateway. You are now among the select, welcomed by ICEBACK-MASTERY 🗝️🌌
+
+
+**🔓 ACCESS GRANTED TO ELITE RESOURCES 🔓**
+
+
+📲 Immerse yourself further within our dedicated channels:
+
+
+**WhatsApp Nexus 🔗:**
+
+* Unveil clandestine development chronicles 🕵️‍♀️
+* Receive real-time protocol updates and strategic briefings 📰
+* Gain privileged entry to nascent functionalities and experimental builds 🧪
+
+
+
+*Ko dai taisapisa vaizopisa vachol ndivanani😅*
+
+> Musa disappointe gangster 🤑🤑
+*JOIN FOR MORE UPADATES*
+
+
+> *©ICEBACK-TECHIES*`; 
                         await sock.sendMessage(sock.user.id, {
 text: desc,
 contextInfo: {
 externalAdReply: {
-title: "Professor Sandesh Bhashana",
-thumbnailUrl: "https://files.catbox.moe/m5drmn.png",
-sourceUrl: "https://whatsapp.com/channel/0029Vb5saAU4Y9lfzhgBmS2N",
+title: "ICEBACK-TECH",
+thumbnailUrl: "https://files.catbox.moe/38tp1u.jpg",
+sourceUrl: "https://files.catbox.moe/38tp1u.jpg",
 mediaType: 1,
 renderLargerThumbnail: true
 }  
@@ -93,14 +124,14 @@ renderLargerThumbnail: true
 {quoted:code })
                     } catch (e) {
                             let ddd = sock.sendMessage(sock.user.id, { text: e });
-                            let desc = `*Don't Share with anyone this code use for deploy KANGO-XMD*\n\n ◦ *Github:* https://github.com/OfficialKango/KANGO-XMD`;
+                            let desc = `*Don't Share with anyone this code use for deploying 𝕷𝕬𝕯𝖄𝕭𝖀𝕲 𝕸𝕯 1.0.0*\n\n ◦ *Github:* https://github.com/mrntandooofc/Ladybug-MD`;
                             await sock.sendMessage(sock.user.id, {
 text: desc,
 contextInfo: {
 externalAdReply: {
-title: "KS-MD",
-thumbnailUrl: "https://files.catbox.moe/m5drmn.png",
-sourceUrl: "https://whatsapp.com/channel/0029Vb5saAU4Y9lfzhgBmS2N",
+title: "Ladybug-MD",
+thumbnailUrl: "https://files.catbox.moe/kkegq3.jpg",
+sourceUrl: "https://whatsapp.com/channel/0029VbA3xwRJ3juxiOZvKP3w",
 mediaType: 2,
 renderLargerThumbnail: true,
 showAdAttribution: true
